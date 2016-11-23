@@ -43,7 +43,7 @@ function getTexts(dir, ext) {
 }
 
 function getNewPbTexts(imageNames, pbTexts) {
-  compareImagePbNumber(imageNames, pbTexts);
+  checkImageAndPbNumber(imageNames, pbTexts);
 
   let i = 0;
 
@@ -61,7 +61,7 @@ function getNewPbTexts(imageNames, pbTexts) {
   });
 }
 
-function compareImagePbNumber(imageNames, pbTexts) {
+function checkImageAndPbNumber(imageNames, pbTexts) {
   let pbs = pbTexts.map((pbText) => {
       return pbText.match(pbRegex) || [];
     })
