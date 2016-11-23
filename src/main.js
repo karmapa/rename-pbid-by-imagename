@@ -86,15 +86,6 @@ function checkImageAndPbNumber(imageNames, pbTexts) {
   }
 }
 
-function compareArrLength(arr1, arr2) {
-  let arr1N = arr1.length;
-  let arr2N = arr2.length;
-
-  if (arr1N > arr2N) {
-    console.log()
-  }
-}
-
 function writeTexts(texts, dir, names, ext) {
   texts.forEach((text, i) => {
     let route = dir + '/' + names[i] + '.' + ext;
