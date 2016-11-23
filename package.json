@@ -1,5 +1,5 @@
 {
-  "name": "make-image-as-pbid",
+  "name": "rename-pbid-by-imagename",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
