@@ -71,6 +71,10 @@ function compareImagePbNumber(imageNames, pbTexts) {
 
   let pbN = pbs.length, imageN = imageNames.length;
 
+  if (0 === pbN) {
+    throw new Error('There is no pb tag in all text files');
+  }
+
   if (imageN !== pbN) {
     console.log('There are', pbN, 'pb tags and', imageN, 'images');
     if (imageN > pbN) {
