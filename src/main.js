@@ -17,7 +17,13 @@ let newPbTexts = getNewPbTexts(imageNames, pbTexts);
 writeTexts(newPbTexts, newTextDir, pbTextNames, textExt);
 
 function getFileRoutes(dir, ext) {
-  return Glob.sync(dir + '/**/*.' + ext);
+  let routes = Glob.sync(dir + '/**/*.' + ext);
+
+  if (0 === routes.length) {
+    throw new Error('There is no files in \'' + dir + '\' folder');
+  }
+
+  return routes;
 }
 
 function getFileNames(dir, ext) {
@@ -56,18 +62,6 @@ function getNewPbTexts(imageNames, pbTexts) {
 }
 
 function compareImagePbNumber(imageNames, pbTexts) {
-  let imageN = imageNames.length;
-
-  try {
-    if (0 === imageN || 0 === pbTexts.length) {
-      throw 'There is no image files or text files in \'images\' folder or \'pbTexts\' folder';
-    }
-  }
-  catch(err) {
-    console.log(err);
-    return;
-  }
-
   let pbs = pbTexts.map((pbText) => {
       return pbText.match(pbRegex) || [];
     })
@@ -75,7 +69,7 @@ function compareImagePbNumber(imageNames, pbTexts) {
       return arr1.concat(arr2);
     });
 
-  let pbN = pbs.length;
+  let pbN = pbs.length, imageN = imageNames.length;
 
   if (imageN !== pbN) {
     console.log('There are', pbN, 'pb tags and', imageN, 'images');
