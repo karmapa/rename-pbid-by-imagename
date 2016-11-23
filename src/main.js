@@ -8,7 +8,7 @@ const imageExt = process.argv[2];
 const textDir = './pbTexts';
 const textExt = process.argv[3];
 const newTextDir = './newPbTexts';
-const pbRegex = new RegExp(/<pb id=".+?"\/>/, 'g');
+const pbRegex = new RegExp(/<pb id=".*?"\/>/, 'g');
 
 let imageNames = getFileNames(imageDir, imageExt);
 let pbTextNames = getFileNames(textDir, textExt);
@@ -37,6 +37,8 @@ function getTexts(dir, ext) {
 }
 
 function getNewPbTexts(imageNames, pbTexts) {
+  compareImagePbNumber(imageNames, pbTexts);
+
   let i = 0;
 
   return pbTexts.map((pbText) => {
@@ -51,6 +53,36 @@ function getNewPbTexts(imageNames, pbTexts) {
       }
     });
   });
+}
+
+function compareImagePbNumber(imageNames, pbTexts) {
+  let pbs = pbTexts.map((pbText) => {
+      return pbText.match(pbRegex);
+    })
+    .reduce((arr1, arr2) => {
+      return arr1.concat(arr2);
+    });
+
+  let pbN = pbs.length, imageN = imageNames.length;
+
+  if (imageN !== pbN) {
+    console.log('There are', pbN, 'pb tags and', imageN, 'images');
+    if (imageN > pbN) {
+      console.log('The last pb', pbs[pbN - 1], 'is replaced by image name', imageNames[pbN - 1]);
+    }
+    else {
+      console.log('Pb tags from', pbs[imageN], 'are not replaced');
+    }
+  }
+}
+
+function compareArrLength(arr1, arr2) {
+  let arr1N = arr1.length;
+  let arr2N = arr2.length;
+
+  if (arr1N > arr2N) {
+    console.log()
+  }
 }
 
 function writeTexts(texts, dir, names, ext) {
