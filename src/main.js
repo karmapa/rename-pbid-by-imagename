@@ -97,6 +97,9 @@ function writeTexts(texts, dir, names, ext) {
       if (err) {
         throw err;
       }
+      else {
+        console.log('Rename pb id in', route, 'done');
+      }
     });
   });
 }
