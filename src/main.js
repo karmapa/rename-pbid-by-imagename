@@ -17,6 +17,10 @@ let newPbTexts = getNewPbTexts(imageNames, pbTexts);
 writeTexts(newPbTexts, newTextDir, pbTextNames, textExt);
 
 function getFileRoutes(dir, ext) {
+  if (undefined === ext) {
+    throw new Error('Please add file extension in command line, e.g. \'node index.js jpg xml\'')
+  }
+
   let routes = Glob.sync(dir + '/**/*.' + ext);
 
   if (0 === routes.length) {
